@@ -1,8 +1,8 @@
 package ADT;
 
 public interface CircularLinkedListADT<T> {
-    void add(T data);
-    void remove(T data);
-    void display();
+    public void add(T data);
+    public void remove(T data);
+    public void display();
     int size();
 }
