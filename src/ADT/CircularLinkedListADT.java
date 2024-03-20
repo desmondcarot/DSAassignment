@@ -4,5 +4,5 @@ public interface CircularLinkedListADT<T> {
     public void add(T data);
     public void remove(T data);
     public void display();
-    int size();
+    public int size();
 }
