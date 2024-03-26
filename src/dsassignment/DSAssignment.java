@@ -69,27 +69,99 @@ public class DSAssignment {
 
     }
 
-
+    
     //method to test implementations 
     static public void test(){
         CLinkedList<Student> studentList = new CLinkedList<>();
+        CLinkedList<Student> studentList2 = new CLinkedList<>();
+        
         studentList.add(new Student(1, "Alice", "RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
-        studentList.add(new Student(2, "Bob", "RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
-        studentList.add(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
-        studentList.add(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
+        studentList.add(new Student(2, "Bob", "RSD", "G1", "FOCS", "Bob@tarc.edu.my" ));
+        studentList.add(new Student(3, "Charlie","RSD", "G1", "FOCS", "Charlie@tarc.edu.my" ));
+        studentList.add(new Student(3, "Carl","RSD", "G1", "FOCS", "Carl@tarc.edu.my" ));
+        studentList.add(new Student(4, "Molly","RSD", "G1", "FOCS", "Molly@tarc.edu.my" ));
+        studentList2.add(new Student(5, "Bobby","RSD", "G1", "FOCS", "Bobby@tarc.edu.my" ));
+        studentList2.add(new Student(6, "Conny","RSD", "G1", "FOCS", "Conny@tarc.edu.my" ));
+        studentList2.add(new Student(7, "Polly","RSD", "G1", "FOCS", "Polly@tarc.edu.my" ));
+        studentList2.add(new Student(2, "Ken","RSD", "G1", "FOCS", "Ken@tarc.edu.my" ));
+        studentList2.add(new Student(3, "Sacy","RSD", "G1", "FOCS", "Sacy@tarc.edu.my" ));
+        studentList2.add(new Student(8, "Paul","RSD", "G1", "FOCS", "Paul@tarc.edu.my" ));
+        studentList2.add(new Student(9, "Darren","RSD", "G1", "FOCS", "Darren@tarc.edu.my" ));
+        
+
+        //Display method
+        System.out.println("List 1");
+        System.out.println("=================");
         studentList.display();
+        System.out.println("\n");
 
-        var test = studentList.contains(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
+        System.out.println("List 2");
+        System.out.println("=================");
+        studentList2.display();
+        System.out.println("\n");
+        
+
+        //contains method
+        System.out.println("Does List 1 contains student id 3?");
+        System.out.println("=================");
+        var test = studentList.contains(new Student(3, "Ross","Bos", "G2S", "FOCS", "Ross@tarc.edu.my" ));
         System.out.println(test);
+        System.out.println("\n");
 
+        //remove method
+        System.out.println("Does List 1 contains student id 3? after removing it");
+        System.out.println("=================");
+        studentList.remove(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
+        var test1 = studentList.contains(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
+        studentList.display();
+        System.out.println(test1);
+        System.out.println("\n");
+
+
+        //toJson method
+        System.out.println("Print List 1 as JSON string");
+        System.out.println("=================");
         var jsontest = studentList.toJSON();
-        System.out.println("JSON");
         System.out.println(jsontest);
+        System.out.println("\n");
 
+
+        //iterator method 
+        System.out.println("Print each item in the list using iterator");
+        System.out.println("=================");
         for (Student item : studentList) {
             System.out.println(item.toString());
         }
+        System.out.println("\n");
 
+
+        //merge list1 and list2
+        System.out.println("merge list1 and list2");
+        System.out.println("=================");
+        studentList.merge(studentList2);
+        studentList.display();
+        System.out.println("\n");
+
+        //remove duplicate
+        System.out.println("remove duplicate");
+        System.out.println("=================");
+        studentList.removeDuplicates();
+        studentList.display();
+        System.out.println("\n");
+
+        System.out.println("Final Size");
+        System.out.println("=================");
+        studentList.sort();
+        studentList.display();
+        System.out.println("\n");
+
+        System.out.println("Final Size");
+        System.out.println("=================");
+        System.out.println(studentList.size());
+        System.out.println("\n");
+
+        
+        
     }
 
     //Display main menu
@@ -110,6 +182,7 @@ public class DSAssignment {
         }
         
     }
+
 
     //method to clear CLI
     public static void clearScreen() {
