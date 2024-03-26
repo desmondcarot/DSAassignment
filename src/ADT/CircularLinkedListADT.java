@@ -1,8 +1,5 @@
 package ADT;
 
-/**
- * CircularLinkedListADT
- */
 public interface CircularLinkedListADT<T> {
     boolean add(T data);
     void remove(T data);
