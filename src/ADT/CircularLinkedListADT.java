@@ -4,9 +4,13 @@ package ADT;
  * CircularLinkedListADT
  */
 public interface CircularLinkedListADT<T> {
-    void add(T data);
+    boolean add(T data);
     void remove(T data);
     void display();
     int size();
+    String toJSON();
     // You can add more methods as needed
+
+
+    
 }

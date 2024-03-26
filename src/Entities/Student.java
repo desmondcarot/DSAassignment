@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Objects;
+//Example DATA Entity Class
 public class Student {
     private int id;
     private String name;
@@ -8,6 +10,8 @@ public class Student {
     private String studentClass;
     private String email;
 
+
+    //Constructor
     public Student(int id, String name, String course, String programme, String studentClass, String email) {
         this.id = id;
         this.name = name;
@@ -17,9 +21,37 @@ public class Student {
         this.email = email;
     }
 
+
+    //Required to compare objects
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Student student = (Student) obj;
+        return id == student.id && Objects.equals(name, student.name);
+    }
+
+    // Use toString method to return JSON object string
+    @Override
+    public String toString() {
+        return "{" +
+            "\"id\":" + id + "," +
+            "\"name\":\"" + name + "\"," +
+            "\"course\":\"" + course + "\"," +
+            "\"programme\":\"" + programme + "\"," +
+            "\"studentClass\":\"" + studentClass + "\"," +
+            "\"email\":\"" + email + "\"" +
+            "}";
+    }
+
     public int getId() {
         return id;
     }
+    
 
     public void setId(int id) {
         this.id = id;
@@ -63,19 +95,6 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    // toString 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", course='" + course + '\'' +
-                ", programme='" + programme + '\'' +
-                ", studentClass='" + studentClass + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }
 
