@@ -1,7 +1,6 @@
 package ADT;
 
-
-public interface CircularLinkedListADT<T extends Comparable<T>> {
+public interface CircularListInterface<T extends Comparable<T>> extends Iterable<T> {
     
     /**
      * Add item of type T to the linked list
@@ -10,13 +9,12 @@ public interface CircularLinkedListADT<T extends Comparable<T>> {
      * @return true if the item is successfully added, false otherwise
      */
     boolean add(T data);
-
     /**
      * Removes the specified item from the circular linked list.
      * 
      * @param item the item to be removed
      */
-    void remove(T item);
+    boolean remove(T item);
 
     /**
      * Checks if the circular linked list contains the specified item.
@@ -38,6 +36,14 @@ public interface CircularLinkedListADT<T extends Comparable<T>> {
      */
     int size();
 
+
+    /**
+     * Gets the head node of the circular linked list.
+     * 
+     * @return the head node of the circular linked list
+     */
+    CLinkedList<T>.Node<T> getHead();
+    
     /**
      * Updates an item in the circular linked list with a new value.
      * 
@@ -54,13 +60,15 @@ public interface CircularLinkedListADT<T extends Comparable<T>> {
      */
     String toJSON();
 
+    boolean isEmpty();
+
     /**
      * Merges the current circular linked list with another circular linked list.
      * 
      * @param secondList the second circular linked list to be merged
      * @return true if the merge is successful, false otherwise
      */
-    boolean merge(CLinkedList<T> secondList);
+    boolean merge(CircularListInterface<T> secondList);
 
     /**
      * Removes duplicate items from the circular linked list.
@@ -75,5 +83,6 @@ public interface CircularLinkedListADT<T extends Comparable<T>> {
      * @return true if the list is successfully sorted, false otherwise
      */
     boolean sort();
+
 
 }

@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  *
  * @author Desmond
  */
-public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListADT<T>, Iterable<T>{
+public class CLinkedList<T extends Comparable<T>> implements CircularListInterface<T>{
     private Node<T> head;
     private int size;
 
@@ -33,10 +33,10 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
             Node<T> current = head;
             // Find the last node in the list
             while (current.next != head) {
-                current = current.next;
                 if (newNode.data.equals(current.data)){
                     return false;
                 }
+                current = current.next;
             }
             current.next = newNode;
             newNode.next = head;
@@ -45,43 +45,59 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
         return true;
     }
 
+    
+
     @Override
-    public void remove(T item){
+    public boolean remove(T item){
         if (head == null){
-            System.out.println("list is empty");
-            return;
-        }else{
+            return false; // list is empty
+        }
+        else{
             if (head.data.equals(item)){
                 if (head.next == head){
-                    head.next = null;
+                    head.next = null; //if the first node matches item
                 }else{ 
                     Node<T> last = head;
                     while (last.next != head){
                         last = last.next;
                     }
                     last.next = head.next;
-                    head = head.next;
+                    head = head.next; //if the first node is require to be removed but still contains other node
                 }
                 size--;
-                return;
-            }
+                return true;
+            }//remove if the first node matches item
         }
 
         Node<T> current = head;
         Node<T> prev = null;
 
-        do {
+        do { // handle removal of nodes other than head.
             if (current.data.equals(item)) {
                 prev.next = current.next;
                 size--;
-                return;
+                return true;
             }
             prev = current;
             current = current.next;
         } while (current != head);
+        return false;
     }
 
     public boolean contains(T data) {
+        if (head != null) {
+            Node<T> current = head;
+            do {
+                if (current.data.equals(data)) {
+                    return true;
+                }
+                current = current.next;
+            } while (current != head);
+        }
+        return false;
+    }
+
+    public boolean get(T data) {
         if (head != null) {
             Node<T> current = head;
             do {
@@ -170,7 +186,7 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
     }
 
     @Override
-    public boolean merge (CLinkedList<T> secondList){
+    public boolean merge (CircularListInterface<T> secondList){
 
         Node<T> current = head;
         if (secondList == null || secondList.isEmpty()){
@@ -178,8 +194,8 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
         }
 
         if (this.isEmpty() || this.head == null){
-            this.head = secondList.head;
-            this.size = secondList.size;
+            this.head = secondList.getHead();
+            this.size = secondList.size();
             return true;
         }
         
@@ -188,14 +204,14 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
         }
             
         //make current last node reference the secondlist head
-        current.next = secondList.head;
-        this.size += secondList.size;
+        current.next = secondList.getHead();
+        this.size += secondList.size();
 
         //get last node of second list
-        Node<T> secondListLast = secondList.head;
+        Node<T> secondListLast = secondList.getHead();
         do{
             secondListLast = secondListLast.next;
-        }while(secondListLast.next != secondList.head);
+        }while(secondListLast.next != secondList.getHead());
         
         //make second list last node point to the current head maintaining circularity.
         secondListLast.next = this.head;
@@ -206,7 +222,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
     public Iterator<T> iterator() {
         return new LinkedListIterator();
     }
-
 
     @Override
     public boolean removeDuplicates() {
@@ -357,33 +372,21 @@ public class CLinkedList<T extends Comparable<T>> implements CircularLinkedListA
     }
 
 
-    //comment here
-//imagine the first split, where a list [item1, item3, item2, item6, item4, item5, item9, item8] (the last node points to item 1)
+    // private Node<T> getNodebyData(T data){
+    //     if (head == null){
+    //         return null;
+    //     }
 
-// becomes two list 
-// - [item1, item3, item2, item6] (the last node points to null)
-// - [item4, item5, item9, item8] (the last node points to item1 )
+    //     Node<T> current = head;
+    //     do{
+    //         if (current.data.equals(data));
+    //     }while (current != head);
 
-// and then we're trying to find the middle of these two again.  with the method getMiddle(start)
+    //     return current;
+    // }
 
-// private Node<T> getMiddle(Node<T> start) {
-//         if (start == null) {
-//             return null;
-//         }
-
-//         Node<T> slow = start;
-//         Node<T> fast = start;
-        
-//         // Move 'fast' two steps and 'slow' one step at a time until 'fast' reaches the end
-//         while ((fast.next != start && fast.next.next != start ) ) {
-//             fast = fast.next.next;
-//             slow = slow.next;
-//         }
-
-//         return slow;
-//     }
-
-// which leads during mergesort(left) the find middle cant locate middle as fast.next will inevitably met error where  fast.next = null
-    
-
+    @Override
+    public CLinkedList<T>.Node<T> getHead() {
+        return this.head;
+    }
 }

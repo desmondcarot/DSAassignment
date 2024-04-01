@@ -1,7 +1,7 @@
 package Entities;
 
 //Example DATA Entity Class
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student>, DataClass{
     private int id;
     private String name;
     private String course;
@@ -56,6 +56,9 @@ public class Student implements Comparable<Student>{
             "}";
     }
 
+
+
+    //required to enable merge sort, specifiy the field or parameter in which you would like the sort to compare
     @Override
     public int compareTo(Student other) {
         // Handle comparison with null
