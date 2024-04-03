@@ -94,6 +94,13 @@ import ADT.CircularListInterface;
             this.courseID = courseID;
         }
 
+
+        public TutorialGroup(String id) {
+            this.id = id;
+            this.tutor = "unassigned";
+            this.courseID = "unassigned";
+        }
+
         public TutorialGroup() {}
 
         public String getId() {

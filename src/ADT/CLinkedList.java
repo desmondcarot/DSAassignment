@@ -31,7 +31,7 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
             head.next = head; // Link head to itself to make it circular
         } else {
             Node<T> current = head;
-            // Find the last node in the list
+            // Traverse the list until last 
             while (current.next != head) {
                 if (newNode.data.equals(current.data)){
                     return false;
@@ -384,6 +384,30 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
 
     //     return current;
     // }
+
+
+    public T getData(T dataref){
+        Node<T> current = null;
+        if (head != null) {
+            current = head;
+            do {
+                if (current.data.equals(dataref)) {
+                    return current.data;
+                }
+                current = current.next;
+            } while (current != head);
+        }
+        return null;
+    }
+
+    public CLinkedList<T>.Node<T> getTail() {
+        Node<T> current = head;
+        while(current.next != head){
+            current = current.next;
+        }
+        return current;
+    }
+
 
     @Override
     public CLinkedList<T>.Node<T> getHead() {

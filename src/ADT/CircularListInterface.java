@@ -21,6 +21,7 @@ public interface CircularListInterface<T extends Comparable<T>> extends Iterable
      * 
      * @param data the item to search for
      * @return true if the item is found, false otherwise
+     * Make sure to override the equals method to get custom comparison for your object class
      */
     boolean contains(T data);
 
@@ -35,14 +36,6 @@ public interface CircularListInterface<T extends Comparable<T>> extends Iterable
      * @return the size of the circular linked list
      */
     int size();
-
-
-    /**
-     * Gets the head node of the circular linked list.
-     * 
-     * @return the head node of the circular linked list
-     */
-    CLinkedList<T>.Node<T> getHead();
     
     /**
      * Updates an item in the circular linked list with a new value.
@@ -83,6 +76,21 @@ public interface CircularListInterface<T extends Comparable<T>> extends Iterable
      * @return true if the list is successfully sorted, false otherwise
      */
     boolean sort();
+
+    /**
+     * Gets the head node of the circular linked list.
+     * 
+     * @return the head node of the circular linked list
+     */
+    CLinkedList<T>.Node<T> getHead();
+
+    /**
+     * Gets the head node of the circular linked list.
+     * @param dataref takes an instance of a reference object you want to get from the list.
+     * @return an instance of the object that matches the reference object from the list.
+     * Make sure to override the equals method to get custom comparison
+     */
+    T getData(T dataref );
 
 
 }

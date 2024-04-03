@@ -81,9 +81,9 @@ public class UI {
         }
     }
 
-    public void editGrpInformation(String error){
+    public void editGrpInformation(String error, String selectedGroup){
         clearScreen();
-        System.out.println("Change Group Information");
+        System.out.println("Change Group Information for " + selectedGroup);
         System.out.println("-------------------------------");
         System.out.println("1. ID");
         System.out.println("2. Tutor");
@@ -108,13 +108,6 @@ public class UI {
         rmvGroup.setId(id);
         return rmvGroup;
     }
-
-    public void editIDInput(CircularListInterface<TutorialGroup> tut){
-        
-    }
-
-    
-
 
     //TODO: Use Tutor class
     public void inputTutor(CircularListInterface<String> tutor){
@@ -155,7 +148,6 @@ public class UI {
             // Print each tutorial group with proper formatting
             System.out.printf("%-10s%-10s%-10s%-10s\n", groupId, tutorId, courseId, studentIds);
         }
-
     }
 
     public void print(String x){
@@ -169,7 +161,7 @@ public class UI {
         String input = "";
         do{
             if(input.length() > max){
-                System.out.println("Please Enter between 0 - "+ max +"integer");
+                System.out.println("Please Enter between 0 - "+ max +" Characters");
             }
             input = scanner.nextLine();
         }while(input.length() > max);
@@ -198,7 +190,7 @@ public class UI {
         return choice;
     }
 
-    //method to clear CLI
+    //method to clear CLI for linux and windows
     public static void clearScreen() {
         try {
             // Clear screen command for Windows
@@ -211,5 +203,7 @@ public class UI {
             System.out.println("Error clearing the screen: " + ex.getMessage());
         }
     }
+
+    
     
 }

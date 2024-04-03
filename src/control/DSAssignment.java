@@ -87,7 +87,7 @@ public class DSAssignment {
         //contains method
         System.out.println("Does List 1 contains student id 3?");
         System.out.println("=================");
-        var test = studentList.contains(new Student(3, "Ross","Bos", "G2S", "FOCS", "Ross@tarc.edu.my" ));
+        Boolean test = studentList.contains(new Student(3, "Ross","Bos", "G2S", "FOCS", "Ross@tarc.edu.my" ));
         System.out.println(test);
         System.out.println("\n");
 
@@ -95,7 +95,7 @@ public class DSAssignment {
         System.out.println("Does List 1 contains student id 3? after removing it");
         System.out.println("=================");
         studentList.remove(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
-        var test1 = studentList.contains(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
+        Boolean test1 = studentList.contains(new Student(3, "Charlie","RSD", "G1", "FOCS", "Alice@tarc.edu.my" ));
         studentList.display();
         System.out.println(test1);
         System.out.println("\n");
@@ -104,7 +104,7 @@ public class DSAssignment {
         //toJson method
         System.out.println("Print List 1 as JSON string");
         System.out.println("=================");
-        var jsontest = studentList.toJSON();
+        String jsontest = studentList.toJSON();
         System.out.println(jsontest);
         System.out.println("\n");
 
