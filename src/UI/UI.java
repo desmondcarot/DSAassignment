@@ -3,24 +3,12 @@ package UI;
 import java.io.IOException;
 import java.util.Scanner;
 
-import ADT.CLinkedList;
 import ADT.CircularListInterface;
 import Entities.TutorialGroup;
 
 public class UI {
     
     Scanner scanner = new Scanner(System.in);
-    public int getChoice(){
-        int choice;
-        if (!scanner.hasNextInt()) {
-            choice = 99;
-            scanner.nextLine();
-        }else{
-            choice = scanner.nextInt();
-            scanner.nextLine();
-        }
-        return choice;
-    }
 
     //Display Menu
     public void mainMenuDisplay(String error){
@@ -48,9 +36,7 @@ public class UI {
         System.out.println("2. List Tutorial Group");
         System.out.println("3. Remove Tutorial Groups");
         System.out.println("4. Edit Tutorial Group");
-        System.out.println("5. Test Codes");
-        System.out.println("6. Return to menu");
-        System.out.println("0. Exit");
+        System.out.println("0. Return to menu");
 
         if (error != null){
             System.out.println("");
@@ -176,7 +162,7 @@ public class UI {
         System.out.println(x);
     }
 
-    /*
+    /**
      * @param max : specify the maximum lenght of input
      */
     public String getString(int max) {
@@ -188,6 +174,28 @@ public class UI {
             input = scanner.nextLine();
         }while(input.length() > max);
         return input;
+    }
+    
+    /**
+     * @param max : specify the max choice user can select
+     * @return an int of the choice selected by user
+     */
+    public int getChoice(int max){
+        int maxinput = max;
+        int choice = 20202;
+        do{
+            System.out.println("Enter your choice: ");
+            if (!scanner.hasNextInt()) {
+                print("Invalid Choice!");
+                choice = 99999;
+                scanner.nextLine();
+            }else{
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+        }while (choice < 0 || choice > maxinput);
+
+        return choice;
     }
 
     //method to clear CLI
