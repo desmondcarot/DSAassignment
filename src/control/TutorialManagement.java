@@ -147,6 +147,10 @@ public class TutorialManagement {
         ui.print("Enter new ID: ");
         String newID = ui.getString(5);
 
+        if(tutorialGrpList.isEmpty()){
+            return null;
+        }
+
         if (newID == selectedGroupID){
             return new Object[]{"No changes made",newID};
         }

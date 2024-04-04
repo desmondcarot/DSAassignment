@@ -4,6 +4,7 @@
  */
 package control;
 
+import ADT.CLinkedList;
 import ADT.CircularListInterface;
 import Entities.Student;
 import Entities.TutorialGroup;
@@ -18,11 +19,10 @@ public class DSAssignment {
     UI ui = new UI();
     Initializer init = new Initializer();
     CircularListInterface<TutorialGroup> tutorialGrpList = init.tutorialGroupListInit();
-    CircularListInterface<String> studentlist = null;
-    CircularListInterface<String> tutorlist = null;
-    CircularListInterface<String> courselist = null;
+    CircularListInterface<String> studentlist = new CLinkedList<>();
+    CircularListInterface<String> tutorlist = new CLinkedList<>();
+    CircularListInterface<String> courselist = new CLinkedList<>();
 
-    
     public static void main(String[] args) {
         DSAssignment run = new DSAssignment();
         run.runMenu();
