@@ -18,11 +18,11 @@ public class DSAssignment {
     UI ui = new UI();
     Initializer init = new Initializer();
     CircularListInterface<TutorialGroup> tutorialGrpList = init.tutorialGroupListInit();
-    CircularListInterface<String> studentlist = init.studentInitString();
-    CircularListInterface<String> tutorlist = init.tutorlistinit();
-    CircularListInterface<String> courselist = init.courseListInit();
-    
+    CircularListInterface<String> studentlist = null;
+    CircularListInterface<String> tutorlist = null;
+    CircularListInterface<String> courselist = null;
 
+    
     public static void main(String[] args) {
         DSAssignment run = new DSAssignment();
         run.runMenu();
@@ -41,7 +41,8 @@ public class DSAssignment {
                     break;
                 case 2:
                     TutorialManagement tut = new TutorialManagement(tutorialGrpList, studentlist, tutorlist, courselist);
-                    tut.runTutorial();
+                    //update the tutorial group list
+                    tutorialGrpList = tut.runTutorial();
                     break;
                 case 3:
                     System.out.println("Assignment Registration selected.");

@@ -9,6 +9,7 @@ public interface CircularListInterface<T extends Comparable<T>> extends Iterable
      * @return true if the item is successfully added, false otherwise
      */
     boolean add(T data);
+    
     /**
      * Removes the specified item from the circular linked list.
      * 

@@ -1,8 +1,8 @@
-    package Entities;
+package Entities;
 
 
 
-    import ADT.CLinkedList;
+import ADT.CLinkedList;
 import ADT.CircularListInterface;
 
     public class TutorialGroup implements Comparable<TutorialGroup>, DataClass {
@@ -18,14 +18,6 @@ import ADT.CircularListInterface;
             jsonBuilder.append("\"tutorialgrp\": \"").append(tutor).append("\", ");
             jsonBuilder.append("\"studentlist\": [");
             if (studentlist != null) {  
-                //boolean first = true;
-                // for (String student : studentlist) {
-                //     if (!first) {
-                //         jsonBuilder.append(", ");
-                //     }
-                //     jsonBuilder.append("\"").append(student).append("\"");
-                //     first = false;
-                // }
                 jsonBuilder.append(studentlist.toJSON());
             }
             jsonBuilder.append("], ");

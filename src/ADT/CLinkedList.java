@@ -97,19 +97,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         return false;
     }
 
-    public boolean get(T data) {
-        if (head != null) {
-            Node<T> current = head;
-            do {
-                if (current.data.equals(data)) {
-                    return true;
-                }
-                current = current.next;
-            } while (current != head);
-        }
-        return false;
-    }
-
     public void display() {
         if (head != null) {
             Node<T> current = head;
@@ -202,7 +189,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         while(current.next != head){
             current = current.next;
         }
-            
         //make current last node reference the secondlist head
         current.next = secondList.getHead();
         this.size += secondList.size();
@@ -370,21 +356,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
 
         return result;
     }
-
-
-    // private Node<T> getNodebyData(T data){
-    //     if (head == null){
-    //         return null;
-    //     }
-
-    //     Node<T> current = head;
-    //     do{
-    //         if (current.data.equals(data));
-    //     }while (current != head);
-
-    //     return current;
-    // }
-
 
     public T getData(T dataref){
         Node<T> current = null;

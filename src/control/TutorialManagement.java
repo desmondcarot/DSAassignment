@@ -98,7 +98,7 @@ public class TutorialManagement {
         }while (choice != 0);
 
         
-    }
+    }  
 
     public String changeGroupInformationMenu(){
         String selectedGroup = null;
@@ -194,5 +194,4 @@ public class TutorialManagement {
         }
         return "Unable to remove student";
     }   
-    
 }
