@@ -1,4 +1,4 @@
-package Entities;
+package Entity;
 
 public interface DataClass {
     public String toString();

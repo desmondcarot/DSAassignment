@@ -1,22 +1,23 @@
 package control;
+import ADT.CLinkedList;
 import ADT.CircularListInterface;
-import Entities.TutorialGroup;
+import Entity.*;
 import UI.*;
 import dao.Initializer;
 
 public class TutorialManagement {
     Initializer init = new Initializer();
-    CircularListInterface<TutorialGroup> tutorialGrpList = init.tutorialGroupListInit();
-    CircularListInterface<String> studentlist = init.studentInitString();
-    CircularListInterface<String> tutorlist = init.tutorlistinit();
-    CircularListInterface<String> courselist = init.courseListInit();
+    CircularListInterface<TutorialGroup> tutorialGrpList = new CLinkedList<>();
+    CircularListInterface<Student> studentlist = new CLinkedList<>();
+    CircularListInterface<String> tutorlist = new CLinkedList<>();
+    CircularListInterface<Course> courselist = new CLinkedList<>();
     UI ui = new UI();
 
 
     public TutorialManagement(CircularListInterface<TutorialGroup> TG,
-     CircularListInterface<String> S, 
+     CircularListInterface<Student> S, 
      CircularListInterface<String> T, 
-     CircularListInterface<String> C){
+     CircularListInterface<Course> C){
         studentlist = S;
         tutorialGrpList = TG;
         courselist = C;
@@ -173,15 +174,19 @@ public class TutorialManagement {
 
     public String changeCourse(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.print("Enter new Tutor ID: ");
-        String newCourse = ui.getString(6);
+        ui.print("Current course is: "+ objectrefs.getCourseID());
+        ui.print("=============================");
+        ui.courselistDisplay(courselist);
+        ui.print("Enter new Course ID: ");
+        String newCourse = ui.getString(8);
         objectrefs.setCourseID(newCourse);
         return "Sucess";
     }
 
     public String addStudent(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.print("Enter new student Name ID: ");
+        ui.studentDisplay(studentlist);
+        ui.print("Enter new student ID: ");
         String newStudent = ui.getString(10);
         if (objectrefs.getStudentlist().add(newStudent)){
             return "Student Added";
@@ -190,6 +195,7 @@ public class TutorialManagement {
     }
 
     public String removeStudent(String selectedGroupID){
+        ui.studentDisplay(studentlist);
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
         ui.print("Enter new student Name ID: ");
         String remStudent = ui.getString(5);

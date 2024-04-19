@@ -41,6 +41,32 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         return true;
     }
 
+    public boolean addSame(T data) {
+        Node<T> newNode = new Node<>(data);
+        if (head == null) {
+            head = newNode;
+            head.next = head; // Link head to itself to make it circular
+        } else {
+            Node<T> current = head;
+            // Traverse the list until last
+            while (current.next != head) {
+//                if (newNode.data.equals(current.data)){
+//                    return false;
+//                }
+                current = current.next;
+            }
+            current.next = newNode;
+            newNode.next = head;
+        }
+        size++;
+        return true;
+    }
+
+    public void clear() {
+        head = null;
+        size = 0;
+    }
+
     
 
     @Override

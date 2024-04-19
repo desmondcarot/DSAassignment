@@ -1,6 +1,4 @@
-package Entities;
-
-
+package Entity;
 
 import ADT.CLinkedList;
 import ADT.CircularListInterface;
