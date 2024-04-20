@@ -20,6 +20,7 @@ public class DSAssignment {
     CircularListInterface<Student> studentlist = init.studentDetailListInit();
     CircularListInterface<String> tutorlist = init.tutorlistinit();
     CircularListInterface<Course> courselist = init.courseProgramListInit();
+    CircularListInterface<Program> programlist = init.programListInit(tutorialGrpList);
 
     public static void main(String[] args) {
         DSAssignment run = new DSAssignment();
@@ -39,9 +40,11 @@ public class DSAssignment {
                     studentlist = std.runStudentRegistration();
                     break;
                 case 2:
-                    TutorialManagement tut = new TutorialManagement(tutorialGrpList, studentlist, tutorlist, courselist);
+                    TutorialManagement tut = new TutorialManagement(tutorialGrpList, studentlist, tutorlist, courselist, programlist);
                     //update the tutorial group master list
                     tutorialGrpList = tut.runTutorial();
+                    programlist = tut.getProgramlist();
+                    ui.getString(5);
                     break;
                 case 3:
                     CourseManagement course = new CourseManagement(courselist);
@@ -62,8 +65,6 @@ public class DSAssignment {
             }
         } while (choice != 0);
     }
-
-
 
     public void report(){
         String errMsg = null;
@@ -96,10 +97,11 @@ public class DSAssignment {
         do{
             UI.clearScreen();
             ui.tutorialReportMenu(errMsg);
-            choice = ui.getChoice(5);
+            choice = ui.getChoice(6);
             switch (choice) {
                 case 1:
-                    listAllGroup();
+                    UI.clearScreen();
+                    listAllGroup(tutorialGrpList);
                     break;
                 case 2:
                     listEmptyGroup();
@@ -113,19 +115,20 @@ public class DSAssignment {
                 case 5:
                     errMsg = DetailedGroupReport();
                     break;
+                case 6: 
+                    errMsg = getTutorialGroupByProgramme();
                 default:
                     break;
             }
         }while(choice != 0);
     }
 
-    public void listAllGroup(){
-        UI.clearScreen();
+    public void listAllGroup(CircularListInterface<TutorialGroup> t){
         int x = 1;
         System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
-        for (TutorialGroup item: tutorialGrpList){
+        for (TutorialGroup item: t){
             ui.print("=".repeat(45));
-            System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+            System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getProgram(), item.getStudentlist().size(), item.getMaxSize());
             ui.print("=".repeat(45));
             if (item.getStudentlist().size() != 0){
                 for (Student student: item.getStudentlist()){
@@ -146,7 +149,7 @@ public class DSAssignment {
         for (TutorialGroup item: tutorialGrpList){
             if (item.getStudentlist().size() == 0){
                 ui.print("=".repeat(45));
-                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getProgram(), item.getStudentlist().size(), item.getMaxSize());
                 ui.print("=".repeat(45));
                 x++;
             }
@@ -161,7 +164,7 @@ public class DSAssignment {
         for (TutorialGroup item: tutorialGrpList){
             if (item.getStudentlist().size() >= item.getMaxSize()){
                 ui.print("=".repeat(45));
-                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getProgram(), item.getStudentlist().size(), item.getMaxSize());
                 ui.print("=".repeat(45));
                 x++;
             }
@@ -178,7 +181,7 @@ public class DSAssignment {
             int maxSize = item.getMaxSize();
             if (size <= maxSize && size != 0){
                 ui.print("=".repeat(45));
-                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getProgram(), item.getStudentlist().size(), item.getMaxSize());
                 ui.print("=".repeat(45));
                 x++;
             }
@@ -197,7 +200,7 @@ public class DSAssignment {
             TutorialGroup TG = tutorialGrpList.getData(new TutorialGroup(selectedGroup));
             CircularListInterface<Student> stdlist = TG.getStudentlist();
             ui.print("=".repeat(45));
-            System.out.printf("%-3s %-10s %-10s %-10s %3d/%-3d\n","No." ,TG.getId(), TG.getTutor(), TG.getCourseID(), TG.getStudentlist().size(), TG.getMaxSize());
+            System.out.printf("%-3s %-10s %-10s %-10s %3d/%-3d\n","No." ,TG.getId(), TG.getTutor(), TG.getProgram(), TG.getStudentlist().size(), TG.getMaxSize());
             ui.print("=".repeat(45));
             int x = 1;
             for (Student student: stdlist){
@@ -209,6 +212,27 @@ public class DSAssignment {
         }else{
             return "Group selected is invalid";
         }
-        
+    }
+
+    public String getTutorialGroupByProgramme(){
+        UI.clearScreen();
+        ui.displayProgram(programlist);
+        ui.print("Enter program name to show its tutorial group");
+        String s = ui.getString(3);
+
+        if (programlist.contains(new Program(s))){
+            Program programrefs = programlist.getData(new Program(s));
+            CircularListInterface<TutorialGroup> tgList= programrefs.getTutorialGrouplist();
+            if(tgList.size() == 0){
+                return "Program has no tutorial Group assigned";
+            }
+            UI.clearScreen();
+            System.out.printf("Program : %s, No of Groups: %d\n", programrefs.getProgramName(), tgList.size());
+            System.out.print("=".repeat(45) + "\n");
+            listAllGroup(tgList);
+            return null;
+        }
+
+        return "program not found";
     }
 }

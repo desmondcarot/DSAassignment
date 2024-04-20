@@ -1,5 +1,4 @@
 package control;
-import ADT.CLinkedList;
 import ADT.CircularListInterface;
 import Entity.*;
 import UI.*;
@@ -7,21 +6,24 @@ import dao.Initializer;
 
 public class TutorialManagement {
     Initializer init = new Initializer();
-    CircularListInterface<TutorialGroup> tutorialGrpList = new CLinkedList<>();
-    CircularListInterface<Student> studentlist = new CLinkedList<>();
-    CircularListInterface<String> tutorlist = new CLinkedList<>();
-    CircularListInterface<Course> courselist = new CLinkedList<>();
+    CircularListInterface<TutorialGroup> tutorialGrpList = null;
+    CircularListInterface<Student> studentlist = null;
+    CircularListInterface<String> tutorlist = null;
+    CircularListInterface<Course> courselist = null;
+    CircularListInterface<Program> programlist = null;
     UI ui = new UI();
 
 
     public TutorialManagement(CircularListInterface<TutorialGroup> TG,
      CircularListInterface<Student> S, 
      CircularListInterface<String> T, 
-     CircularListInterface<Course> C){
+     CircularListInterface<Course> C,
+     CircularListInterface<Program> P){
         studentlist = S;
         tutorialGrpList = TG;
         courselist = C;
         tutorlist = T;
+        programlist = P;
      }
 
     public CircularListInterface<TutorialGroup> runTutorial(){
@@ -54,19 +56,34 @@ public class TutorialManagement {
     }
 
     public String addTutorialGroup(){
-        if (tutorialGrpList.add(ui.inputTutorialGroup(courselist, tutorlist))){
-            return "Sucessfully Added";
-        }else{
-            return "Unable to add new Tutorial Group";
+        TutorialGroup newGroup = ui.inputTutorialGroup(programlist, tutorlist);
+        if (newGroup != null){
+            if (tutorialGrpList.add(newGroup)){
+                //add tutorial group to program
+                programlist.getData(new Program(newGroup.getProgram())).getTutorialGrouplist().add(newGroup);
+                return "Sucessfully Added";
+            }else{
+                return "Unable to add new Tutorial Group";
+            }
         }
+
+        return "unable to add new Tutorial Group";
+        
     }
 
     public String removeTutorialGroup(){
-        if (tutorialGrpList.remove(ui.removeInput(tutorialGrpList))){
-            return "Sucessfully Removed";
-        }else{
-            return "Nothing is removed";
+        TutorialGroup remGroup = ui.removeInput(tutorialGrpList);
+        if(tutorialGrpList.contains(remGroup)){
+            String program = tutorialGrpList.getData(remGroup).getProgram();
+            Program programref = programlist.getData(new Program(program));
+            if (tutorialGrpList.remove(remGroup)){
+                programref.getTutorialGrouplist().remove(remGroup);
+                return "Group "+ remGroup.getId() + " removed";
+            }else{
+                return "Nothing is removed";
+            }
         }
+        return "Nothing is removed";
     }
 
     public void listTutorialGroup(){
@@ -103,7 +120,7 @@ public class TutorialManagement {
                     error = changeTutor(selectedGroup);
                     break;
                 case 3: //Change course
-                    error = changeCourse(selectedGroup);
+                    error = changeProgram(selectedGroup);
                     break;
                 case 4: //Add student
                     error = addStudent(selectedGroup);
@@ -150,15 +167,24 @@ public class TutorialManagement {
         return "Sucess";
     }
 
-    public String changeCourse(String selectedGroupID){
+    public String changeProgram(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.print("Current course is: "+ objectrefs.getCourseID());
         ui.print("=============================");
-        ui.courselistDisplay(courselist);
-        ui.print("Enter new Course ID: ");
-        String newCourse = ui.getString(8);
-        objectrefs.setCourseID(newCourse);
-        return "Sucess";
+        ui.displayProgram(programlist);
+        ui.print("Enter new program name: ");
+        ui.print("Current program is: "+ objectrefs.getProgram());
+        String newProgram = ui.getString(8);
+        if(objectrefs.getProgram().equals(newProgram)){
+            return "Program selected are the same. No changes made";
+        }
+        if(programlist.contains(new Program(newProgram))){
+            programlist.getData(new Program(objectrefs.getProgram())).getTutorialGrouplist().remove(objectrefs);
+            objectrefs.setProgram(newProgram);
+            programlist.getData(new Program(objectrefs.getProgram())).getTutorialGrouplist().add(objectrefs);
+            return "Sucess";
+        }
+        return "No changes made";
+
     }
 
     public String addStudent(String selectedGroupID){
@@ -199,4 +225,9 @@ public class TutorialManagement {
             return "Student is not in the list";
         }
     }   
+
+
+    public CircularListInterface<Program> getProgramlist() {
+        return programlist;
+    }
 }

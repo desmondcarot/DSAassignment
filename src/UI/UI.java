@@ -45,25 +45,30 @@ public class UI {
         }
     }
 
-    public TutorialGroup inputTutorialGroup(CircularListInterface<Course> course, CircularListInterface<String> tutor){
+    public TutorialGroup inputTutorialGroup(CircularListInterface<Program> program, CircularListInterface<String> tutor){
         TutorialGroup newGroup = new TutorialGroup();
         clearScreen();
         String grpID;
-        String courseID;
+        String programName;
         String tutorID;
         System.out.println("Tutorial Group Registration");
         System.out.println("-------------------------------");
         System.out.println("Enter Tutorial GroupID");
-        grpID = getString(6);
+        grpID = "GRP"+getChoice(999);
         newGroup.setId(grpID);
         displayTutor(tutor);
         System.out.println("Select Associated Tutor ID");
         tutorID = getString(6);
         newGroup.setTutor(tutorID);
-        displayCourse(course);
-        System.out.println("Select Associated Course ID");
-        courseID = getString(10);
-        newGroup.setCourseID(courseID);
+
+        //get program obj reference
+        displayProgram(program);
+        System.out.println("Select Associated Program ID");
+        programName = getString(5);
+        if (!program.contains(new Program(programName))){
+            return null;
+        }
+        newGroup.setProgram(programName);
         return newGroup;
     }
 
@@ -88,7 +93,7 @@ public class UI {
         System.out.println("-------------------------------");
         System.out.println("1. ID");
         System.out.println("2. Tutor");
-        System.out.println("3. Course");
+        System.out.println("3. Program");
         System.out.println("4. Add Student");
         System.out.println("5. Remove Student");
         System.out.println("0. Return");
@@ -122,12 +127,14 @@ public class UI {
         }
     }
 
-    public void displayCourse(CircularListInterface<Course> course){
+    public void displayProgram(CircularListInterface<Program> program){
         clearScreen();
-        System.out.println("SELECT COURSE LIST");
-        System.out.printf("%-10s %-10s\n", "Course ID", "Course name");
-        for (Course item: course){
-            System.out.printf("%-10s %-10s\n", item.getCourseId(), item.getCourseName());
+        System.out.println("SELECT PROGRAM LIST");
+        System.out.printf("%-3s %-10s\n", "No","Program Name");
+        int x = 1;
+        for (Program item: program){
+            System.out.printf("%-3d %-10s\n",x, item.getProgramName());
+            x++;
         }
     }
 
@@ -136,12 +143,12 @@ public class UI {
         System.out.println("Tutorial Group List");
         System.out.println("-------------------------------");
         // Print header
-        System.out.printf("%-10s%-10s%-10s%-10s\n", "Group ID", "Tutor", "Course", "Student");
+        System.out.printf("%-10s%-10s%-10s%-10s\n", "Group ID", "Tutor", "Program", "Student");
         // Print tutorial groups
         for (TutorialGroup group : tut) {
             String groupId = group.getId();
             String tutorId = group.getTutor();
-            String courseId = group.getCourseID();
+            String courseId = group.getProgram();
             int studentsize = group.getStudentlist().size();
             int maxSize = group.getMaxSize();
             
@@ -577,6 +584,7 @@ public class UI {
         print("3. Full Group Report");
         print("4. Available Group Report");
         print("5. Detailed Group Report");
+        print("6. Group by Programme Report\n");
 
         if (erroString != null){
             print(erroString);

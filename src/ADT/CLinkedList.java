@@ -76,20 +76,24 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
             return false; // list is empty
         }
         else{
+            //remove if first node matches item
             if (head.data.equals(item)){
+                //checks if the item removed is the head and is the last item
                 if (head.next == head){
-                    head.next = null; //if the first node matches item
+                    clear();
+
+                //checks if the head is the item is removed but maintain the rest of item
                 }else{ 
                     Node<T> last = head;
                     while (last.next != head){
                         last = last.next;
                     }
                     last.next = head.next;
-                    head = head.next; //if the first node is require to be removed but still contains other node
+                    head = head.next;
                 }
                 size--;
                 return true;
-            }//remove if the first node matches item
+            }
         }
 
         Node<T> current = head;
@@ -167,10 +171,8 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
     //Requires the dataclass toString Method to return JSON obj string
     @Override
     public String toJSON() {
-
         StringBuilder jsonBuilder = new StringBuilder();
         jsonBuilder.append("[");
-        
         if (head != null) {
             Node<T> current = head;
             boolean isFirst = true;

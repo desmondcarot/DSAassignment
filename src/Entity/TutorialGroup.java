@@ -7,20 +7,20 @@ import ADT.CircularListInterface;
         private String id;
         private String tutor;
         private CircularListInterface<Student> studentlist = new CLinkedList<>();
-        private String courseID;
+        private String program;
         private int maxSize;
 
         public String toString() {
             StringBuilder jsonBuilder = new StringBuilder();
             jsonBuilder.append("{");
             jsonBuilder.append("\"id\": \"").append(id).append("\", ");
-            jsonBuilder.append("\"tutorialgrp\": \"").append(tutor).append("\", ");
+            jsonBuilder.append("\"Tutor\": \"").append(tutor).append("\", ");
             jsonBuilder.append("\"studentlist\": [");
             if (studentlist != null) {  
                 jsonBuilder.append(studentlist.toJSON());
             }
             jsonBuilder.append("], ");
-            jsonBuilder.append("\"courseID\": \"").append(courseID).append("\"");
+            jsonBuilder.append("\"programID\": \"").append(program).append("\"");
             jsonBuilder.append("}");
             return jsonBuilder.toString();
         }
@@ -54,13 +54,13 @@ import ADT.CircularListInterface;
          * @param id          The ID of the tutorial group.
          * @param tutor       The name of the tutor for the tutorial group.
          * @param studentlist The list of student IDs enrolled in the tutorial group.
-         * @param courseID    The ID of the course to which the tutorial group belongs.
+         * @param programName    The name of the program to which the tutorial group belongs.
          */
-        public TutorialGroup(String id, String tutor, CircularListInterface<Student> studentlist, String courseID, int maxSize) {
+        public TutorialGroup(String id, String tutor, CircularListInterface<Student> studentlist, String program, int maxSize) {
             this.id = id;
             this.tutor = tutor;
             this.studentlist = studentlist;
-            this.courseID = courseID;
+            this.program = program;
             this.maxSize = maxSize;
         }
 
@@ -70,12 +70,12 @@ import ADT.CircularListInterface;
          *
          * @param id          The ID of the tutorial group.
          * @param tutor       The name of the tutor for the tutorial group.
-         * @param courseID    The ID of the course to which the tutorial group belongs.
+         * @param program    The name of the program to which the tutorial group belongs.
          */
-        public TutorialGroup(String id, String tutor, String courseID, int maxSize) {
+        public TutorialGroup(String id, String tutor, String program, int maxSize) {
             this.id = id;
             this.tutor = tutor;
-            this.courseID = courseID;
+            this.program = program;
             this.maxSize = maxSize;
         }
 
@@ -83,7 +83,7 @@ import ADT.CircularListInterface;
         public TutorialGroup(String id) {
             this.id = id;
             this.tutor = "unassigned";
-            this.courseID = "unassigned";
+            this.program = "unassigned";
         }
 
         public TutorialGroup() {}
@@ -112,12 +112,12 @@ import ADT.CircularListInterface;
             this.studentlist = studentlist;
         }
 
-        public String getCourseID() {
-            return courseID;
+        public String getProgram() {
+            return program;
         }
 
-        public void setCourseID(String courseID) {
-            this.courseID = courseID;
+        public void setProgram(String program) {
+            this.program = program;
         }
 
         public int getMaxSize() {
