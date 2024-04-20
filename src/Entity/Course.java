@@ -47,11 +47,10 @@ public class Course implements Comparable<Course>, DataClass {
 
     @Override
     public int compareTo(Course other) {
-        int result = this.courseId.compareTo(other.getCourseId());
-        if (result == 0) {
+        if (this.courseIntId == other.courseIntId) {
             System.out.println("Course Id are equal");
             return 0;
-        } else if (result < 0) {
+        } else if (this.courseIntId < Course.courseIntId) {
             System.out.println("This course name is less than the other course name");
             return -1;
         } else {

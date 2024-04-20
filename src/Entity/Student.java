@@ -10,7 +10,7 @@ public class Student implements Comparable<Student>, DataClass{
     private String course;
     private String programme;
     private String studentClass;
-    private CircularListInterface<Course> studentCourseList;
+    private CircularListInterface<Course> studentCourseList = new CLinkedList<>();
     private String email;
     private static int nextId = 1;
 
@@ -92,27 +92,30 @@ public class Student implements Comparable<Student>, DataClass{
         this.programme = programme;
         this.studentClass = studentClass;
         this.email = email;
-        this.studentCourseList = new CLinkedList();
         nextId++;
     }
     
     
     
-    
-    
-    
+    public Student() {
+        this.id = nextId;
+        this.name = "";
+        this.course = "";
+        this.programme = "";
+        this.studentClass = "";
+        this.email = "";
+        nextId++;
+    }
 
-    
-            public Student() {
-            this.id = nextId;
-            this.name = "";
-            this.course = "";
-            this.programme = "";
-            this.studentClass = "";
-            this.email = "";
-            this.studentCourseList = new CLinkedList();
-            nextId++;
-        }
+    public Student(int id) {
+        this.id = id;
+        this.name = "";
+        this.course = "";
+        this.programme = "";
+        this.studentClass = "";
+        this.email = "";
+        nextId++;
+    }
     
     
    

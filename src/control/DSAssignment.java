@@ -52,6 +52,8 @@ public class DSAssignment {
                     // Add your tutor registration logic here
                     break;
                 case 5:
+                    report();
+                    break;
                 case 0:
                     System.out.println("Exiting program. Goodbye!");
                     break;
@@ -59,5 +61,50 @@ public class DSAssignment {
                     System.out.println("Invalid choice. Please select a valid option.");
             }
         } while (choice != 0);
+    }
+
+
+
+    public void report(){
+        UI.clearScreen();
+        String errMsg = null;
+        ui.reportMenu(errMsg);
+        int choice = ui.getChoice(4);
+        
+        switch (choice){
+            case 1:
+                tutorialReport();
+                break;
+            case 2:
+                //student
+            case 3:
+                //course
+            case 4:
+                //Tutor
+        }
+        
+    }
+
+
+    public void tutorialReport(){
+        UI.clearScreen();
+        int x = 1;
+        System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
+        for (TutorialGroup item: tutorialGrpList){
+            ui.print("=".repeat(45));
+            System.out.printf("%-4d %-10s %-10s %-10s %-8d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size());
+            ui.print("=".repeat(45));
+            if (item.getStudentlist().size() != 0){
+                for (Student student: item.getStudentlist()){
+                    System.out.printf("%-10d %-10s %-20s\n", student.getId(), student.getName(), student.getEmail());
+                }
+            }else{
+                ui.print("No student.");
+            }
+            
+            x++;
+        }
+
+        ui.getString(5);
     }
 }

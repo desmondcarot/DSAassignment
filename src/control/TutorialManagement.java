@@ -43,7 +43,7 @@ public class TutorialManagement {
                     errorMsg = removeTutorialGroup();
                     break;
                 case 4:
-                    editTutorialGroupMenu();
+                    errorMsg = changeGroupInformationMenu();
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -77,29 +77,6 @@ public class TutorialManagement {
             choice = ui.getChoice(0);
         }while (choice != 0);
     }
-
-    public void editTutorialGroupMenu(){
-        String error = null;
-        int choice;
-        do{
-            ui.editGrpMenuDisplay(error);
-            choice = ui.getChoice(3);
-
-            switch(choice){
-                case 1:
-                    error = changeGroupInformationMenu();
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-            }   
-
-        }while (choice != 0);
-
-        
-    }  
 
     public String changeGroupInformationMenu(){
         String selectedGroup = null;
@@ -166,6 +143,7 @@ public class TutorialManagement {
 
     public String changeTutor(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
+        ui.print("current tutor: " + objectrefs.getTutor());
         ui.print("Enter new Tutor ID: ");
         String newTutor = ui.getString(6);
         objectrefs.setTutor(newTutor);
@@ -187,21 +165,31 @@ public class TutorialManagement {
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
         ui.studentDisplay(studentlist);
         ui.print("Enter new student ID: ");
-        String newStudent = ui.getString(10);
-        if (objectrefs.getStudentlist().add(newStudent)){
-            return "Student Added";
+        Student newStudent = studentlist.getData(new Student(ui.getChoice(studentlist.size())));
+        if (newStudent != null){
+            if (objectrefs.getStudentlist().add(newStudent)){
+                return "Student Added";
+            }
         }
         return "Unable to add new student";
     }
 
     public String removeStudent(String selectedGroupID){
-        ui.studentDisplay(studentlist);
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.print("Enter new student Name ID: ");
-        String remStudent = ui.getString(5);
-        if (objectrefs.getStudentlist().remove(remStudent)){
-            return "Student Removed";
+        CircularListInterface<Student> currentStudentlist = objectrefs.getStudentlist();
+
+        if (currentStudentlist.isEmpty()){
+            return "Tutorial group is empty";
+        }else{
+            ui.studentDisplay(currentStudentlist);
+            ui.print("Select student id to be removed ");
+            Student remStudent = currentStudentlist.getData(new Student(ui.getChoice(currentStudentlist.size())));
+            if (remStudent != null){
+                if (objectrefs.getStudentlist().remove(remStudent)){
+                    return "Student Removed";
+                }
+            }
+            return "Student is not in the list";
         }
-        return "Unable to remove student";
     }   
 }

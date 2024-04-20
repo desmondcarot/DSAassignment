@@ -38,6 +38,8 @@ public class Initializer {
 
     public CircularListInterface<TutorialGroup> tutorialGroupListInit(){
         CircularListInterface<TutorialGroup> tutorialGrouplist = new CLinkedList<>();
+        CircularListInterface<Student> stdlist = studentDetailListInit();
+
         tutorialGrouplist.add(new TutorialGroup("GRP1", "Tutor1", "BACS1011"));
         tutorialGrouplist.add(new TutorialGroup("GRP2", "Tutor2", "BACS1011"));
         tutorialGrouplist.add(new TutorialGroup("GRP3", "Tutor3", "BACS1011"));
@@ -46,6 +48,16 @@ public class Initializer {
         tutorialGrouplist.add(new TutorialGroup("GRP6", "Tutor6", "BACS1013"));
         tutorialGrouplist.add(new TutorialGroup("GRP7", "Tutor7", "BACS1014"));
         tutorialGrouplist.add(new TutorialGroup("GRP8", "Tutor8", "BACS1013"));
+        TutorialGroup objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP7"));
+        
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(12)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(1)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(3)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(4)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(5)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(6)));
+
+
         return tutorialGrouplist;
     }
     

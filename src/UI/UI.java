@@ -7,8 +7,6 @@ import ADT.CircularListInterface;
 import Entity.*;
 
 public class UI {
-    
-
     //Tutorial Management UI
     //Desmond
     Scanner scanner = new Scanner(System.in);
@@ -19,10 +17,10 @@ public class UI {
         System.out.println("UNIVERSITY SYSTEM");
         System.out.println("-------------------------------");
         System.out.println("1. Student Registration");
-        System.out.println("2. Tutorial Registration");
-        System.out.println("3. Course Registration");
-        System.out.println("4. Tutor Registration");
-        System.out.println("5. Test Codes");
+        System.out.println("2. Tutorial Management");
+        System.out.println("3. Course Management");
+        System.out.println("4. Tutor Management");
+        System.out.println("5. Report");
         System.out.println("0. Exit");
 
         if (error != null){
@@ -554,5 +552,19 @@ public class UI {
         String coursing = getString(100);
 
         return coursing;
+    }
+
+
+    public void reportMenu(String erroString){
+        print("REPORT MENU");
+        print("==============");
+        print("1. Tutorial report");
+        print("2. Student Report");
+        print("3. Course Report");
+        print("4. Tutor Report");
+
+        if (erroString != null){
+            print(erroString);
+        }
     }
 }

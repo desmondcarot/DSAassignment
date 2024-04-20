@@ -6,7 +6,7 @@ import ADT.CircularListInterface;
     public class TutorialGroup implements Comparable<TutorialGroup>, DataClass {
         private String id;
         private String tutor;
-        private CircularListInterface<String> studentlist = new CLinkedList<>();
+        private CircularListInterface<Student> studentlist = new CLinkedList<>();
         private String courseID;
 
         public String toString() {
@@ -25,21 +25,13 @@ import ADT.CircularListInterface;
         }
 
         @Override
-        public int compareTo(TutorialGroup other) {
-            // Handle comparison with null
-            int result = this.id.compareTo(other.getId());
-            if (result == 0) {
-                System.out.println("Strings are equal");
-                //this is equal 2
-                return 0;
-            } else if (result < 0) {
-                //str1 is less than str2
-                return 2;
-            } else {
-                System.out.println("str1 is greater than str2");
-                return 1;
-                //this is equal 1
-            }
+        public int compareTo(TutorialGroup otherGroup) {
+            // Extract the numeric part of the IDs
+            int thisNumericPart = Integer.parseInt(this.id.substring(3));
+            int otherNumericPart = Integer.parseInt(otherGroup.id.substring(3));
+            
+            // Compare the numeric parts
+            return Integer.compare(thisNumericPart, otherNumericPart);
         }
 
         @Override
@@ -63,7 +55,7 @@ import ADT.CircularListInterface;
          * @param studentlist The list of student IDs enrolled in the tutorial group.
          * @param courseID    The ID of the course to which the tutorial group belongs.
          */
-        public TutorialGroup(String id, String tutor, CircularListInterface<String> studentlist, String courseID) {
+        public TutorialGroup(String id, String tutor, CircularListInterface<Student> studentlist, String courseID) {
             this.id = id;
             this.tutor = tutor;
             this.studentlist = studentlist;
@@ -109,11 +101,11 @@ import ADT.CircularListInterface;
             this.tutor = tutor;
         }
 
-        public CircularListInterface<String> getStudentlist() {
+        public CircularListInterface<Student> getStudentlist() {
             return studentlist;
         }
 
-        public void setStudentlist(CircularListInterface<String> studentlist) {
+        public void setStudentlist(CircularListInterface<Student> studentlist) {
             this.studentlist = studentlist;
         }
 

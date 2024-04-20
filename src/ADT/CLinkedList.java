@@ -37,6 +37,7 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
             current.next = newNode;
             newNode.next = head;
         }
+        sort();
         size++;
         return true;
     }
@@ -186,6 +187,7 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         jsonBuilder.append("]");
         return jsonBuilder.toString();
     }
+
     public boolean isEmpty(){
         if (head == null){
             return true;
@@ -343,12 +345,14 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         Node<T> slow = start;
         Node<T> fast = start;
     
-        // Move 'fast' two steps and 'slow' one step at a time until 'fast' catches up with 'slow'
+        //move fast 2 step while slow 1 step
         while (fast.next != null && fast.next.next != null){
             fast = fast.next.next;
             slow = slow.next;
         }
-    
+        
+
+        //fast will reach end while slow will reach halfway which is the middle node
         return slow;
     }
 
@@ -369,11 +373,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         } else {
             result = right;
             result.next = merge(left, right.next);
-        }
-
-        // Ensure circularity of the result
-        if (result.next == null) {
-            result.next = result;
         }
 
         return result;
