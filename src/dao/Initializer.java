@@ -23,7 +23,7 @@ public class Initializer {
         CircularListInterface<Student> studentlist = new CLinkedList<>();
         studentlist.add(new Student( "Alice", "RSD", "RSD", "FOCS", "Alice@tarc.edu.my" ));
         studentlist.add(new Student( "Bob", "RSD", "RSD", "FOCS", "Bob@tarc.edu.my" ));
-        studentlist.add(new Student( "Charlie","RSD", "RSD", "FOCS", "Charlie@tarc.edu.my" ));
+        studentlist.add(new Student( "Charlie","RSD", "RSD", "FOCS", "Charlie@tarc.edu.my" )); 
         studentlist.add(new Student( "Carl","RSD", "RSD", "FOCS", "Carl@tarc.edu.my" ));
         studentlist.add(new Student( "Molly","RSD", "RSD", "FOCS", "Molly@tarc.edu.my" ));
         studentlist.add(new Student( "Bobby","RSD", "RSD", "FOCS", "Bobby@tarc.edu.my" ));
@@ -33,6 +33,36 @@ public class Initializer {
         studentlist.add(new Student( "Sacy","RSD", "RSD", "FOCS", "Sacy@tarc.edu.my" ));
         studentlist.add(new Student( "Paul","RSD", "RSD", "FOCS", "Paul@tarc.edu.my" ));
         studentlist.add(new Student( "Darren","RSD", "RSD", "FOCS", "Darren@tarc.edu.my" ));
+        studentlist.add(new Student("Eva", "RSD", "RSD", "FOCS", "Eva@tarc.edu.my"));
+        studentlist.add(new Student("Fiona", "RSD", "RSD", "FOCS", "Fiona@tarc.edu.my"));
+        studentlist.add(new Student("Gary", "RSD", "RSD", "FOCS", "Gary@tarc.edu.my"));
+        studentlist.add(new Student("Hannah", "RSD", "RSD", "FOCS", "Hannah@tarc.edu.my"));
+        studentlist.add(new Student("Ian", "RSD", "RSD", "FOCS", "Ian@tarc.edu.my"));
+        studentlist.add(new Student("Jenny", "RSD", "RSD", "FOCS", "Jenny@tarc.edu.my"));
+        studentlist.add(new Student("Kevin", "RSD", "RSD", "FOCS", "Kevin@tarc.edu.my"));
+        studentlist.add(new Student("Linda", "RSD", "RSD", "FOCS", "Linda@tarc.edu.my"));
+        studentlist.add(new Student("Michael", "RSD", "RSD", "FOCS", "Michael@tarc.edu.my"));
+        studentlist.add(new Student("Nancy", "RSD", "RSD", "FOCS", "Nancy@tarc.edu.my"));
+        studentlist.add(new Student("Olivia", "RSD", "RSD", "FOCS", "Olivia@tarc.edu.my"));
+        studentlist.add(new Student("Peter", "RSD", "RSD", "FOCS", "Peter@tarc.edu.my"));
+        studentlist.add(new Student("Queenie", "RSD", "RSD", "FOCS", "Queenie@tarc.edu.my"));
+        studentlist.add(new Student("Roger", "RSD", "RSD", "FOCS", "Roger@tarc.edu.my"));
+        studentlist.add(new Student("Sarah", "RSD", "RSD", "FOCS", "Sarah@tarc.edu.my"));
+        studentlist.add(new Student("Tom", "RSD", "RSD", "FOCS", "Tom@tarc.edu.my"));
+        studentlist.add(new Student("Uma", "RSD", "RSD", "FOCS", "Uma@tarc.edu.my"));
+        studentlist.add(new Student("Victor", "RSD", "RSD", "FOCS", "Victor@tarc.edu.my"));
+        studentlist.add(new Student("Wendy", "RSD", "RSD", "FOCS", "Wendy@tarc.edu.my"));
+        studentlist.add(new Student("Xander", "RSD", "RSD", "FOCS", "Xander@tarc.edu.my"));
+        studentlist.add(new Student("Yara", "RSD", "RSD", "FOCS", "Yara@tarc.edu.my"));
+        studentlist.add(new Student("Zack", "RSD", "RSD", "FOCS", "Zack@tarc.edu.my"));
+        studentlist.add(new Student("Anna", "RSD", "RSD", "FOCS", "Anna@tarc.edu.my"));
+        studentlist.add(new Student("Ben", "RSD", "RSD", "FOCS", "Ben@tarc.edu.my"));
+        studentlist.add(new Student("Cathy", "RSD", "RSD", "FOCS", "Cathy@tarc.edu.my"));
+        studentlist.add(new Student("David", "RSD", "RSD", "FOCS", "David@tarc.edu.my"));
+        studentlist.add(new Student("Emma", "RSD", "RSD", "FOCS", "Emma@tarc.edu.my"));
+        studentlist.add(new Student("Frank", "RSD", "RSD", "FOCS", "Frank@tarc.edu.my"));
+        studentlist.add(new Student("Grace", "RSD", "RSD", "FOCS", "Grace@tarc.edu.my"));
+        studentlist.add(new Student("Henry", "RSD", "RSD", "FOCS", "Henry@tarc.edu.my"));
         return studentlist;
     }
 
@@ -40,24 +70,61 @@ public class Initializer {
         CircularListInterface<TutorialGroup> tutorialGrouplist = new CLinkedList<>();
         CircularListInterface<Student> stdlist = studentDetailListInit();
 
-        tutorialGrouplist.add(new TutorialGroup("GRP1", "Tutor1", "BACS1011"));
-        tutorialGrouplist.add(new TutorialGroup("GRP2", "Tutor2", "BACS1011"));
-        tutorialGrouplist.add(new TutorialGroup("GRP3", "Tutor3", "BACS1011"));
-        tutorialGrouplist.add(new TutorialGroup("GRP4", "Tutor4", "BACS1012"));
-        tutorialGrouplist.add(new TutorialGroup("GRP5", "Tutor5", "BACS1012"));
-        tutorialGrouplist.add(new TutorialGroup("GRP6", "Tutor6", "BACS1013"));
-        tutorialGrouplist.add(new TutorialGroup("GRP7", "Tutor7", "BACS1014"));
-        tutorialGrouplist.add(new TutorialGroup("GRP8", "Tutor8", "BACS1013"));
+        tutorialGrouplist.add(new TutorialGroup("GRP1", "Tutor1", "BACS1011", 16));
+        tutorialGrouplist.add(new TutorialGroup("GRP2", "Tutor2", "BACS1011", 16));
+        tutorialGrouplist.add(new TutorialGroup("GRP3", "Tutor3", "BACS1011", 16));
+        tutorialGrouplist.add(new TutorialGroup("GRP4", "Tutor4", "BACS1012", 24));
+        tutorialGrouplist.add(new TutorialGroup("GRP5", "Tutor5", "BACS1012", 24));
+        tutorialGrouplist.add(new TutorialGroup("GRP6", "Tutor6", "BACS1013", 24));
+        tutorialGrouplist.add(new TutorialGroup("GRP7", "Tutor7", "BACS1014", 12));
+        tutorialGrouplist.add(new TutorialGroup("GRP8", "Tutor8", "BACS1013", 12));
+
         TutorialGroup objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP7"));
-        
-        objectrefs.getStudentlist().add(stdlist.getData(new Student(12)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(37)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(42)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(41)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(40)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(39)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(38)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(36)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(35)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(34)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(33)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(32)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(31)));
+
+        objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP1"));
         objectrefs.getStudentlist().add(stdlist.getData(new Student(1)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(2)));
         objectrefs.getStudentlist().add(stdlist.getData(new Student(3)));
         objectrefs.getStudentlist().add(stdlist.getData(new Student(4)));
         objectrefs.getStudentlist().add(stdlist.getData(new Student(5)));
         objectrefs.getStudentlist().add(stdlist.getData(new Student(6)));
 
+        objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP4"));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(7)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(8)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(9)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(10)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(11)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(12)));
 
+        objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP3"));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(13)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(14)));
+
+        objectrefs = tutorialGrouplist.getData(new TutorialGroup("GRP8"));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(15)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(16)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(17)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(18)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(19)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(20)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(21)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(22)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(23)));
+        objectrefs.getStudentlist().add(stdlist.getData(new Student(24)));
+        
         return tutorialGrouplist;
     }
     

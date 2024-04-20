@@ -142,10 +142,11 @@ public class UI {
             String groupId = group.getId();
             String tutorId = group.getTutor();
             String courseId = group.getCourseID();
-            int studentIds = group.getStudentlist().size();
+            int studentsize = group.getStudentlist().size();
+            int maxSize = group.getMaxSize();
             
             // Print each tutorial group with proper formatting
-            System.out.printf("%-10s%-10s%-10s%-10s\n", groupId, tutorId, courseId, studentIds);
+            System.out.printf("%-10s%-10s%-10s%3d/%-3d\n", groupId, tutorId, courseId, studentsize, maxSize);
         }
     }
 
@@ -236,7 +237,7 @@ public class UI {
         System.out.println("Student List");
         System.out.println("-------------------------------");
         // Print header
-        System.out.printf("%-10s%-10s%-10s%-10s%-10s%-10s\n", "Student ID", "Name", "Course", "Programme","Class","Email");
+        System.out.printf("%-5s %-10s %-10s%-10s%-10s%-10s%-10s\n", "No","Student ID", "Name", "Course", "Programme","Class","Email");
         // Print tutorial groups
         for (Student stu : std) {
             int studentID = stu.getId();
@@ -562,6 +563,20 @@ public class UI {
         print("2. Student Report");
         print("3. Course Report");
         print("4. Tutor Report");
+
+        if (erroString != null){
+            print(erroString);
+        }
+    }
+
+    public void tutorialReportMenu(String erroString){
+        print("TUTORIAL GROUP REPORT MENU");
+        print("==============");
+        print("1. All Group report");
+        print("2. Empty Group Report");
+        print("3. Full Group Report");
+        print("4. Available Group Report");
+        print("5. Detailed Group Report");
 
         if (erroString != null){
             print(erroString);

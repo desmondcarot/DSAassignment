@@ -163,15 +163,21 @@ public class TutorialManagement {
 
     public String addStudent(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.studentDisplay(studentlist);
-        ui.print("Enter new student ID: ");
-        Student newStudent = studentlist.getData(new Student(ui.getChoice(studentlist.size())));
-        if (newStudent != null){
-            if (objectrefs.getStudentlist().add(newStudent)){
-                return "Student Added";
+        //Tutorial group is full
+        if (objectrefs.getStudentlist().size() >= objectrefs.getMaxSize()){
+            return "Tutorial Group is full";
+        }else{
+            //Dispaly studentlist and allow user to add student
+            ui.studentDisplay(studentlist);
+            ui.print("Select new student ID");
+            Student newStudent = studentlist.getData(new Student(ui.getChoice(999)));
+            if (newStudent != null){
+                if (objectrefs.getStudentlist().add(newStudent)){
+                    return "Student Added";
+                }
             }
+            return "Unable to add new student";
         }
-        return "Unable to add new student";
     }
 
     public String removeStudent(String selectedGroupID){
@@ -181,9 +187,10 @@ public class TutorialManagement {
         if (currentStudentlist.isEmpty()){
             return "Tutorial group is empty";
         }else{
+            ui.print("Editing for:" + selectedGroupID);
             ui.studentDisplay(currentStudentlist);
             ui.print("Select student id to be removed ");
-            Student remStudent = currentStudentlist.getData(new Student(ui.getChoice(currentStudentlist.size())));
+            Student remStudent = currentStudentlist.getData(new Student(ui.getChoice(999)));
             if (remStudent != null){
                 if (objectrefs.getStudentlist().remove(remStudent)){
                     return "Student Removed";

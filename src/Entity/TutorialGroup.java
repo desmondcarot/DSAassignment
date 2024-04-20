@@ -8,6 +8,7 @@ import ADT.CircularListInterface;
         private String tutor;
         private CircularListInterface<Student> studentlist = new CLinkedList<>();
         private String courseID;
+        private int maxSize;
 
         public String toString() {
             StringBuilder jsonBuilder = new StringBuilder();
@@ -55,11 +56,12 @@ import ADT.CircularListInterface;
          * @param studentlist The list of student IDs enrolled in the tutorial group.
          * @param courseID    The ID of the course to which the tutorial group belongs.
          */
-        public TutorialGroup(String id, String tutor, CircularListInterface<Student> studentlist, String courseID) {
+        public TutorialGroup(String id, String tutor, CircularListInterface<Student> studentlist, String courseID, int maxSize) {
             this.id = id;
             this.tutor = tutor;
             this.studentlist = studentlist;
             this.courseID = courseID;
+            this.maxSize = maxSize;
         }
 
 
@@ -70,10 +72,11 @@ import ADT.CircularListInterface;
          * @param tutor       The name of the tutor for the tutorial group.
          * @param courseID    The ID of the course to which the tutorial group belongs.
          */
-        public TutorialGroup(String id, String tutor, String courseID) {
+        public TutorialGroup(String id, String tutor, String courseID, int maxSize) {
             this.id = id;
             this.tutor = tutor;
             this.courseID = courseID;
+            this.maxSize = maxSize;
         }
 
 
@@ -115,5 +118,9 @@ import ADT.CircularListInterface;
 
         public void setCourseID(String courseID) {
             this.courseID = courseID;
+        }
+
+        public int getMaxSize() {
+            return maxSize;
         }
     }

@@ -143,6 +143,9 @@ public class Course implements Comparable<Course>, DataClass {
         this.programName = programName;
     }
 
+    public CLinkedList<Student> studentlist() {
+        return registerStudent;
+    }
 
 
 }

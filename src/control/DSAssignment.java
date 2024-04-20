@@ -66,33 +66,66 @@ public class DSAssignment {
 
 
     public void report(){
-        UI.clearScreen();
         String errMsg = null;
-        ui.reportMenu(errMsg);
-        int choice = ui.getChoice(4);
-        
-        switch (choice){
-            case 1:
-                tutorialReport();
-                break;
-            case 2:
-                //student
-            case 3:
-                //course
-            case 4:
-                //Tutor
-        }
-        
+        int choice = 0;
+        do{
+            UI.clearScreen();
+            ui.reportMenu(errMsg);
+            choice = ui.getChoice(4);
+            switch (choice){
+                case 1:
+                    tutorialReport();
+                    break;
+                case 2:
+                    //student
+                case 3:
+                    //course
+                case 4:
+                    //Tutor
+                default:
+                    errMsg = "invalid Option";
+                    break;
+            }
+        }while(choice != 0);
     }
 
 
     public void tutorialReport(){
+        String errMsg = null;
+        int choice = 0;
+        do{
+            UI.clearScreen();
+            ui.tutorialReportMenu(errMsg);
+            choice = ui.getChoice(5);
+            switch (choice) {
+                case 1:
+                    listAllGroup();
+                    break;
+                case 2:
+                    listEmptyGroup();
+                    break;
+                case 3:
+                    listFullGroup();
+                    break;
+                case 4:
+                    listAvailableGroup();
+                    break;
+                case 5:
+                    errMsg = DetailedGroupReport();
+                    break;
+                default:
+                    break;
+            }
+        }while(choice != 0);
+    }
+
+    public void listAllGroup(){
         UI.clearScreen();
         int x = 1;
         System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
         for (TutorialGroup item: tutorialGrpList){
             ui.print("=".repeat(45));
-            System.out.printf("%-4d %-10s %-10s %-10s %-8d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size());
+            System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
             ui.print("=".repeat(45));
             if (item.getStudentlist().size() != 0){
                 for (Student student: item.getStudentlist()){
@@ -101,10 +134,81 @@ public class DSAssignment {
             }else{
                 ui.print("No student.");
             }
-            
             x++;
         }
+        ui.getString(999);
+    }
 
+    public void listEmptyGroup(){
+        UI.clearScreen();
+        int x = 1;
+        System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
+        for (TutorialGroup item: tutorialGrpList){
+            if (item.getStudentlist().size() == 0){
+                ui.print("=".repeat(45));
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                ui.print("=".repeat(45));
+                x++;
+            }
+        }
         ui.getString(5);
+    }
+
+    public void listFullGroup(){
+        UI.clearScreen();
+        int x = 1;
+        System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
+        for (TutorialGroup item: tutorialGrpList){
+            if (item.getStudentlist().size() >= item.getMaxSize()){
+                ui.print("=".repeat(45));
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                ui.print("=".repeat(45));
+                x++;
+            }
+        }
+        ui.getString(5);
+    }
+
+    public void listAvailableGroup(){
+        UI.clearScreen();
+        int x = 1;
+        System.out.printf("%-4s %-10s %-10s %-10s %-8s\n", "No ", "GRPID", "TutorID" , "CourseID" , "Students");
+        for (TutorialGroup item: tutorialGrpList){
+            int size = item.getStudentlist().size();
+            int maxSize = item.getMaxSize();
+            if (size <= maxSize && size != 0){
+                ui.print("=".repeat(45));
+                System.out.printf("%-4d %-10s %-10s %-10s %3d/%-3d\n", x, item.getId(), item.getTutor(), item.getCourseID(), item.getStudentlist().size(), item.getMaxSize());
+                ui.print("=".repeat(45));
+                x++;
+            }
+        }
+        ui.getString(999);
+    }
+
+    public String DetailedGroupReport(){
+        UI.clearScreen();
+        ui.tutorialGroupDisplay(tutorialGrpList);
+        ui.print("Select the Group to view their details: ");
+        String selectedGroup = ui.getString(6);
+        
+        if (tutorialGrpList.contains(new TutorialGroup(selectedGroup))){
+            UI.clearScreen();
+            TutorialGroup TG = tutorialGrpList.getData(new TutorialGroup(selectedGroup));
+            CircularListInterface<Student> stdlist = TG.getStudentlist();
+            ui.print("=".repeat(45));
+            System.out.printf("%-3s %-10s %-10s %-10s %3d/%-3d\n","No." ,TG.getId(), TG.getTutor(), TG.getCourseID(), TG.getStudentlist().size(), TG.getMaxSize());
+            ui.print("=".repeat(45));
+            int x = 1;
+            for (Student student: stdlist){
+                System.out.printf("%3d. %-10d %-10s %-20s\n", x, student.getId(), student.getName(), student.getEmail());
+                x++;
+            }
+            ui.getString(999);
+            return null;
+        }else{
+            return "Group selected is invalid";
+        }
+        
     }
 }
