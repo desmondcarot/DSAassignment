@@ -4,6 +4,10 @@ import Entity.*;
 import UI.*;
 import dao.Initializer;
 
+
+/**
+ * @author Desmond
+ */
 public class TutorialManagement {
     Initializer init = new Initializer();
     CircularListInterface<TutorialGroup> tutorialGrpList = null;
@@ -72,7 +76,7 @@ public class TutorialManagement {
     }
 
     public String removeTutorialGroup(){
-        TutorialGroup remGroup = ui.removeInput(tutorialGrpList);
+        TutorialGroup remGroup = ui.removeTutorialGroupInput(tutorialGrpList);
         if(tutorialGrpList.contains(remGroup)){
             String program = tutorialGrpList.getData(remGroup).getProgram();
             Program programref = programlist.getData(new Program(program));

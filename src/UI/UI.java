@@ -6,12 +6,14 @@ import java.util.Scanner;
 import ADT.CircularListInterface;
 import Entity.*;
 
-public class UI {
-    //Tutorial Management UI
-    //Desmond
-    Scanner scanner = new Scanner(System.in);
 
-    //Display Menu
+public class UI {
+    /**
+     * @author Desmond
+     * TutorialGroupManagement
+     */
+    Scanner scanner = new Scanner(System.in);
+    
     public void mainMenuDisplay(String error){
         clearScreen();
         System.out.println("UNIVERSITY SYSTEM");
@@ -63,6 +65,9 @@ public class UI {
         if (!program.contains(new Program(programName))){
             return null;
         }
+        clearScreen();
+        System.out.println("Enter Max Number of student in group");
+        newGroup.setMaxSize(getChoice(9999));
         newGroup.setProgram(programName);
         return newGroup;
     }
@@ -98,7 +103,7 @@ public class UI {
         }
     }
 
-    public TutorialGroup removeInput(CircularListInterface<TutorialGroup> tut){
+    public TutorialGroup removeTutorialGroupInput(CircularListInterface<TutorialGroup> tut){
         TutorialGroup rmvGroup = new TutorialGroup();
         String id = "";
         System.out.println("Tutorial Group Removal");
@@ -136,9 +141,7 @@ public class UI {
         clearScreen();
         System.out.println("Tutorial Group List");
         System.out.println("-------------------------------");
-        // Print header
         System.out.printf("%-10s%-14s%-10s%-10s\n", "Group ID", "Tutor", "Program", "Student");
-        // Print tutorial groups
         for (TutorialGroup group : tut) {
             String groupId = group.getId();
             String tutorId = group.getTutor();
@@ -146,11 +149,9 @@ public class UI {
             int studentsize = group.getStudentlist().size();
             int maxSize = group.getMaxSize();
             
-            // Print each tutorial group with proper formatting
             System.out.printf("%-10s%-14s%-10s%3d/%-3d\n", groupId, tutorId, courseId, studentsize, maxSize);
         }
     }
-
     public void print(String x){
         System.out.println(x);
     }
@@ -191,7 +192,7 @@ public class UI {
         return choice;
     }
 
-    //method to clear CLI for linux and windows
+    //method to clear CLI
     public static void clearScreen() {
         try {
             // Clear screen command for Windows
@@ -204,6 +205,11 @@ public class UI {
             System.out.println("Error clearing the screen: " + ex.getMessage());
         }
     }
+
+
+
+
+
 
     //Student Registration UI
     //Wongwh
@@ -398,8 +404,10 @@ public class UI {
         }
     }
 
-    //Course managment UI
-    //Chia Hang
+    /**
+     * @author Chia Hang
+     * Course Management
+     */
     public void courseMenuDisplay(String error) {
         clearScreen();
         System.out.println(" ");
@@ -414,6 +422,7 @@ public class UI {
         System.out.println("7. Amend Course details for a Programme");
         System.out.println("8. List Courses taken by Faculties");
         System.out.println("9. List All Courses of One Program");
+
 
         if (error != null) {
             System.out.println("");
@@ -570,7 +579,7 @@ public class UI {
         }
     }
 
-    public void tutorialReportMenu(String erroString){
+    public void tutorialReportMenu(String errorString){
         print("TUTORIAL GROUP REPORT MENU");
         print("==============");
         print("1. All Group report");
@@ -580,13 +589,27 @@ public class UI {
         print("5. Detailed Group Report");
         print("6. Group by Programme Report\n");
 
+        if (errorString != null){
+            print(errorString);
+        }
+    }
+
+    public void courseReportMenu(String erroString){
+        print("TUTORIAL GROUP REPORT MENU");
+        print("==============");
+        print("1. Report1 - Semester Offer what Program which Offers what Course + Price (Total)");
+        print("2. Report2");
+
         if (erroString != null){
             print(erroString);
         }
     }
 
 
-    //Tutor Management:  Chiyan
+    /**
+     * @author Chiyan
+     * Tutor management
+     */
     public void tutoringMenu(String error){
         clearScreen();
         System.out.println("Tutorial Group Registration");
