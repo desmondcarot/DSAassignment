@@ -26,7 +26,7 @@ public class Student implements Comparable<Student>, DataClass{
             jsonBuilder.append("\"course\": \"").append(course).append("\", ");
             jsonBuilder.append("\"programme\": \"").append(programme).append("\", ");
             jsonBuilder.append("\"studentClass\": \"").append(name).append("\", ");
-            jsonBuilder.append("\"studentlist\": [");
+            jsonBuilder.append("\"courselist\": [");
             if (studentCourseList != null) {  
                 jsonBuilder.append(studentCourseList.toJSON());
             }

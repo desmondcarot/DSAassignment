@@ -3,10 +3,6 @@ package ADT;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- *
- * @author Desmond
- */
 public class CLinkedList<T extends Comparable<T>> implements CircularListInterface<T>{
     private Node<T> head;
     private int size;
@@ -17,43 +13,44 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
         head = null;
         size = 0;
     }
+
     //Add method, first it checks if the list is empty, if it is empty, the newNode is the head. 
     //if its not empty, it will iterate 
     @Override
     public boolean add(T data) {
-        Node<T> newNode = new Node<>(data);
-        if (head == null) {
-            head = newNode;
-            head.next = head; // Link head to itself to make it circular
-        } else {
-            Node<T> current = head;
-            // Traverse the list until last 
-            while (current.next != head) {
-                if (newNode.data.equals(current.data)){
-                    return false;
-                }
-                current = current.next;
+    Node<T> newNode = new Node<>(data);
+    if (head == null) {
+        head = newNode;
+        head.next = head;
+    } else {
+        Node<T> current = head;
+        // Traverse the list until the last node
+        while (current.next != head) {
+            if (data.equals(current.data)) {
+                // Duplicate data found, return false
+                return false;
             }
-            current.next = newNode;
-            newNode.next = head;
+            current = current.next;
         }
-        sort();
-        size++;
-        return true;
+        if (data.equals(current.data)) {
+            return false;
+        }
+        current.next = newNode;
+        newNode.next = head;
     }
+    sort();
+    size++;
+    return true;
+}
 
     public boolean addSame(T data) {
         Node<T> newNode = new Node<>(data);
         if (head == null) {
             head = newNode;
-            head.next = head; // Link head to itself to make it circular
+            head.next = head;
         } else {
             Node<T> current = head;
-            // Traverse the list until last
             while (current.next != head) {
-//                if (newNode.data.equals(current.data)){
-//                    return false;
-//                }
                 current = current.next;
             }
             current.next = newNode;
@@ -233,33 +230,6 @@ public class CLinkedList<T extends Comparable<T>> implements CircularListInterfa
 
     public Iterator<T> iterator() {
         return new LinkedListIterator();
-    }
-
-    @Override
-    public boolean removeDuplicates() {
-        if (head == null || head.next == head) {
-            // If the list is empty or has only one element, no duplicates to remove
-            return false;
-        }
-
-        boolean duplicatesRemoved = false;
-        Node<T> current = head;
-        
-        do {
-            Node<T> innerNode = current;
-            while (innerNode.next != head) {
-                if (current.data.equals(innerNode.next.data)) {
-                    // Remove duplicate node
-                    innerNode.next = innerNode.next.next;
-                    size--; // Update size
-                    duplicatesRemoved = true;
-                } else {
-                    innerNode = innerNode.next;
-                }
-            }
-            current = current.next;
-        } while (current != head);
-        return duplicatesRemoved;
     }
     
     private class LinkedListIterator implements Iterator<T> {

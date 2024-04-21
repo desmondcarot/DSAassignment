@@ -66,12 +66,7 @@ public interface CircularListInterface<T extends Comparable<T>> extends Iterable
      */
     boolean merge(CircularListInterface<T> secondList);
 
-    /**
-     * Removes duplicate items from the circular linked list.
-     * 
-     * @return true if duplicates are removed, false otherwise
-     */
-    boolean removeDuplicates();
+
 
     /**
      * Sorts the circular linked list in ascending order.

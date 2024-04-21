@@ -22,7 +22,6 @@ public class UI {
         System.out.println("2. Tutorial Management");
         System.out.println("3. Course Management");
         System.out.println("4. Tutor Management");
-        System.out.println("5. Report");
         System.out.println("0. Exit");
 
         if (error != null){
@@ -39,6 +38,7 @@ public class UI {
         System.out.println("2. List Tutorial Group");
         System.out.println("3. Remove Tutorial Groups");
         System.out.println("4. Edit Tutorial Group");
+        System.out.println("5. Report");
         System.out.println("0. Return to menu");
 
         if (error != null){
@@ -89,17 +89,18 @@ public class UI {
 
     public void editGrpInformation(String error, String selectedGroup){
         clearScreen();
-        System.out.println("Change Group Information for " + selectedGroup);
-        System.out.println("-------------------------------");
-        System.out.println("1. ID");
-        //System.out.println("2. Tutor");
-        System.out.println("2. Program");
-        System.out.println("3. Add Student");
-        System.out.println("4. Remove Student");
+        print("Change Group Information for " + selectedGroup);
+        print("-------------------------------");
+        print("1. ID");
+        print("2. Program");
+        print("3. Add Student");
+        print("4. Remove Student");
+        print("5. Merge with another group");
+        print("6 change tutorial Group Size");
         System.out.println("0. Return");
         if (error != null){
-            System.out.println("");
-            System.out.println(error);
+            print("");
+            print(error);
         }
     }
 
@@ -587,10 +588,28 @@ public class UI {
         print("3. Full Group Report");
         print("4. Available Group Report");
         print("5. Detailed Group Report");
-        print("6. Group by Programme Report\n");
+        print("6. Group by Programme Report");
+        print("0. Exit\n");
+
 
         if (errorString != null){
             print(errorString);
+        }
+    }
+
+    public void tgStudentListDisplay(CircularListInterface<Student> std){
+        clearScreen();
+        System.out.println("Student List");
+        System.out.println("-------------------------------");
+        // Print header
+        System.out.printf("%-5s %-10s\n", "ID","Name");
+        // Print tutorial groups
+        for (Student stu : std) {
+            int studentID = stu.getId();
+            String name = stu.getName();
+            
+            // Print each tutorial group with proper formatting
+            System.out.printf("%-5s %-10s\n", studentID, name);
         }
     }
 

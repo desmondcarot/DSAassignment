@@ -7,9 +7,9 @@ import Entity.*;
 public class Initializer {
 
     //desmond Tutorial Group Init
-    public CircularListInterface<TutorialGroup> tutorialGroupListInit() {
+    public CircularListInterface<TutorialGroup> tutorialGroupListInit(CircularListInterface<Student> t) {
         CircularListInterface<TutorialGroup> tutorialGrouplist = new CLinkedList<>();
-        CircularListInterface<Student> stdlist = studentDetailListInit();
+        CircularListInterface<Student> stdlist = t;
 
         tutorialGrouplist.add(new TutorialGroup("GRP1", "unassigned", "RSA", 16));
         tutorialGrouplist.add(new TutorialGroup("GRP2", "unassigned", "RSA", 16));
