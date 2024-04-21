@@ -8,7 +8,7 @@ public class TutorialManagement {
     Initializer init = new Initializer();
     CircularListInterface<TutorialGroup> tutorialGrpList = null;
     CircularListInterface<Student> studentlist = null;
-    CircularListInterface<String> tutorlist = null;
+    CircularListInterface<Tutor> tutorlist = null;
     CircularListInterface<Course> courselist = null;
     CircularListInterface<Program> programlist = null;
     UI ui = new UI();
@@ -16,7 +16,7 @@ public class TutorialManagement {
 
     public TutorialManagement(CircularListInterface<TutorialGroup> TG,
      CircularListInterface<Student> S, 
-     CircularListInterface<String> T, 
+     CircularListInterface<Tutor> T, 
      CircularListInterface<Course> C,
      CircularListInterface<Program> P){
         studentlist = S;
@@ -107,7 +107,7 @@ public class TutorialManagement {
         }
         do{
             ui.editGrpInformation(error, selectedGroup);
-            choice = ui.getChoice(5);
+            choice = ui.getChoice(4);
             switch(choice){
                 case 1: //Change ID
                     Object[] result = changeID(selectedGroup);
@@ -116,16 +116,16 @@ public class TutorialManagement {
                         selectedGroup = (String) result[1];
                     }
                     break;
-                case 2: //Change tutor
-                    error = changeTutor(selectedGroup);
-                    break;
-                case 3: //Change course
+                // case 2: //Change tutor
+                //     error = changeTutor(selectedGroup);
+                //     break;
+                case 2: //Change course
                     error = changeProgram(selectedGroup);
                     break;
-                case 4: //Add student
+                case 3: //Add student
                     error = addStudent(selectedGroup);
                     break;
-                case 5: //remove student
+                case 4: //remove student
                     error = removeStudent(selectedGroup);
                     break;
                 default: 
@@ -158,14 +158,14 @@ public class TutorialManagement {
         return new Object[]{"ID Changed",newID};
     }
 
-    public String changeTutor(String selectedGroupID){
-        TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
-        ui.print("current tutor: " + objectrefs.getTutor());
-        ui.print("Enter new Tutor ID: ");
-        String newTutor = ui.getString(6);
-        objectrefs.setTutor(newTutor);
-        return "Sucess";
-    }
+    // public String changeTutor(String selectedGroupID){
+    //     TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));
+    //     ui.print("current tutor: " + objectrefs.getTutor());
+    //     ui.print("Enter new Tutor ID: ");
+    //     String newTutor = ui.getString(6);
+    //     objectrefs.setTutor(newTutor);
+    //     return "Sucess";
+    // }
 
     public String changeProgram(String selectedGroupID){
         TutorialGroup objectrefs = tutorialGrpList.getData(new TutorialGroup(selectedGroupID));

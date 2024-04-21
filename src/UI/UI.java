@@ -45,22 +45,17 @@ public class UI {
         }
     }
 
-    public TutorialGroup inputTutorialGroup(CircularListInterface<Program> program, CircularListInterface<String> tutor){
+    public TutorialGroup inputTutorialGroup(CircularListInterface<Program> program, CircularListInterface<Tutor> tutor){
         TutorialGroup newGroup = new TutorialGroup();
         clearScreen();
         String grpID;
         String programName;
-        String tutorID;
         System.out.println("Tutorial Group Registration");
         System.out.println("-------------------------------");
         System.out.println("Enter Tutorial GroupID");
         grpID = "GRP"+getChoice(999);
         newGroup.setId(grpID);
-        displayTutor(tutor);
-        System.out.println("Select Associated Tutor ID");
-        tutorID = getString(6);
-        newGroup.setTutor(tutorID);
-
+        newGroup.setTutor("unassigned");
         //get program obj reference
         displayProgram(program);
         System.out.println("Select Associated Program ID");
@@ -92,10 +87,10 @@ public class UI {
         System.out.println("Change Group Information for " + selectedGroup);
         System.out.println("-------------------------------");
         System.out.println("1. ID");
-        System.out.println("2. Tutor");
-        System.out.println("3. Program");
-        System.out.println("4. Add Student");
-        System.out.println("5. Remove Student");
+        //System.out.println("2. Tutor");
+        System.out.println("2. Program");
+        System.out.println("3. Add Student");
+        System.out.println("4. Remove Student");
         System.out.println("0. Return");
         if (error != null){
             System.out.println("");
@@ -115,14 +110,13 @@ public class UI {
         return rmvGroup;
     }
 
-    //TODO: Use Tutor class
-    public void displayTutor(CircularListInterface<String> tutor){
+    public void displayTutor(CircularListInterface<Tutor> tutor){
         clearScreen();
         System.out.println("SELECT TUTOR LIST");
         System.out.printf("%-4s %-10s\n", "no", "Name");
         int i = 1;
-        for (String item: tutor){
-            System.out.printf("%-4d %-10s\n", i, item);
+        for (Tutor item: tutor){
+            System.out.printf("%-4d %-10s\n", i, item.getTutor());
             i++;
         }
     }
@@ -143,7 +137,7 @@ public class UI {
         System.out.println("Tutorial Group List");
         System.out.println("-------------------------------");
         // Print header
-        System.out.printf("%-10s%-10s%-10s%-10s\n", "Group ID", "Tutor", "Program", "Student");
+        System.out.printf("%-10s%-14s%-10s%-10s\n", "Group ID", "Tutor", "Program", "Student");
         // Print tutorial groups
         for (TutorialGroup group : tut) {
             String groupId = group.getId();
@@ -153,7 +147,7 @@ public class UI {
             int maxSize = group.getMaxSize();
             
             // Print each tutorial group with proper formatting
-            System.out.printf("%-10s%-10s%-10s%3d/%-3d\n", groupId, tutorId, courseId, studentsize, maxSize);
+            System.out.printf("%-10s%-14s%-10s%3d/%-3d\n", groupId, tutorId, courseId, studentsize, maxSize);
         }
     }
 
@@ -464,10 +458,10 @@ public class UI {
     }
     
     public String getCourseName() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Please input the name of the Courses");
         System.out.println("E.g. of Course: Course1, Course2 ");
-        return scanner.nextLine();
+        return getString(10);
+
     }
 
     public Course addProgramToCourse(String courseName){
@@ -589,5 +583,206 @@ public class UI {
         if (erroString != null){
             print(erroString);
         }
+    }
+
+
+    //Tutor Management:  Chiyan
+    public void tutoringMenu(String error){
+        clearScreen();
+        System.out.println("Tutorial Group Registration");
+        System.out.println("-------------------------------");
+        System.out.println("1. Assign Tutor to Course");
+        System.out.println("2. Assign Tutorial Group to Tutor");
+        System.out.println("3. Search Tutor for a Courses");
+        System.out.println("4. List Tutor Information");
+        System.out.println("0. Return to menu");
+
+        if (error != null){
+            System.out.println("");
+            System.out.println(error);
+        }
+    }
+
+    public void listTutoringMenu(String error){
+        clearScreen();
+        System.out.println("List option");
+        System.out.println("-------------------------------");
+        System.out.println("1. List Tutor and Group for Selected Course");
+        System.out.println("2. List all tutor and tutorial group");
+        System.out.println("3. Filter");
+        System.out.println("0. Return");
+
+        if (error != null){
+            System.out.println("");
+            System.out.println(error);
+        }
+    }
+
+    public void TutorSearchMenu(String error){
+        clearScreen();
+            System.out.println("List option");
+            System.out.println("-------------------------------");
+            System.out.println("1. Search Course under Tutor");
+            System.out.println("2. Search Tutor under Course");
+            System.out.println("0. Return");
+    
+            if (error != null){
+                System.out.println("");
+                System.out.println(error);
+            }
+    }
+
+    public void inputCourse(CircularListInterface<String> course){
+        clearScreen();
+        System.out.println("SELECT COURSE LIST");
+        System.out.printf("%-4s %-10s\n", "no", "course ID");
+        int i = 1;
+        for (String item: course){
+            System.out.printf("%-4d %-10s\n", i, item);
+            i++;
+        }
+    }
+
+    public boolean searchTutor(CircularListInterface<Tutor> tutGrp, CircularListInterface<String> tutor){
+        Tutor newGroup = new Tutor();
+        String tId;
+        System.out.println("Search Course under Tutor ");
+        System.out.println("-------------------------------");
+        inputTutor(tutor);
+        tId = getString(7);
+        
+        System.out.printf("%-4s%-10s%-10s%-10s\n", "No", "Course", "Tutor", "Type");
+        
+        int i = 1;
+        for (Tutor group : tutGrp) {
+            
+            String courseId = group.getcourseName();
+            String tutorId = group.getTutor();
+            String courseType = group.getCourseType();
+            int groupSize = group.getGrouplist().size();
+            
+            if(tId.equals(tutorId)){
+                System.out.printf("%-4d%-10s%-10s%-10s\n", i, courseId, tutorId, courseType);
+                i++;
+                return true;
+            }
+            
+        }
+        
+        return false;
+    }
+
+    public void inputTutor(CircularListInterface<String> tutor){
+        clearScreen();
+        System.out.println("SELECT TUTOR LIST");
+        System.out.printf("%-4s %-10s\n", "no", "Name");
+        int i = 1;
+        for (String item: tutor){
+            System.out.printf("%-4d %-10s\n", i, item);
+            i++;
+        }
+    }
+
+    public void assignTutorialGroup(CircularListInterface<String> courselist, CircularListInterface<String> tutor, CircularListInterface<Tutor> tutGrp){  
+    }
+
+    public void searchCourse(CircularListInterface<String> course, CircularListInterface<Tutor> tutor){
+        Tutor newGroup = new Tutor();
+        String cId;
+        String cType;
+        System.out.println("Search Tutor under Course ");
+        System.out.println("-------------------------------");
+        inputCourse(course);
+        
+        System.out.println("Select Associated Course ID");
+        cId = getString(84
+        );
+        
+//        int choice;
+//        print("Enter Course Type (L/T/P)");
+//        cType = getString(1);
+//        
+        
+        int i = 1;
+        for (Tutor group : tutor) {
+            String courseType = group.getCourseType();
+            String courseID = group.getcourseName();
+            
+            if (courseID.equals(cId) ){
+            String groupId = group.getcourseName();
+            String tutorId = group.getTutor();
+            String courseId = group.getCourseType();
+            CircularListInterface<TutorialGroup> groupList = group.getGrouplist();
+        
+            for (TutorialGroup tutgrp : groupList) {
+                String tutId = tutgrp.getId();
+
+            // Print each tutorial group with proper formatting
+            System.out.printf("%-10s%-10s%-10s%-10s\n", tutorId, groupId, courseType, tutId);
+            };
+            if (groupList.isEmpty()){
+            System.out.printf("%-10s%-10s%-10s%-10s\n", tutorId, groupId, courseType, "N/A");
+            }
+            // Print each tutorial group with proper formatting
+            //System.out.printf("%-4d%-10s%-10s%-10s%-10s\n", i, groupId, tutorId, courseId, groupSize);
+            i++;
+            }
+        }
+
+        
+       
+    }
+
+     ////list tutor and group for selected course
+     public void TutorDisplay(CircularListInterface<String> course, CircularListInterface<Tutor> tut){
+        clearScreen();
+        String courseID;
+        
+        inputCourse(course);
+        System.out.println("Display Tutor's Group");
+        System.out.println("-------------------------------");
+        System.out.printf("%-4s%-10s%-10s%-10s%-10s\n", "No.", "Course", "Tutor", "Type", "Group No.");
+        
+        int i = 1;
+        for (Tutor group : tut) {
+            String groupId = group.getcourseName();
+            String tutorId = group.getTutor();
+            String courseId = group.getCourseType();
+            int groupSize = group.getGrouplist().size();
+            
+            System.out.printf("%-4s%-10s%-10s%-10s\n", "No", "Course", "Tutor", "Type", "Group No");
+            System.out.printf("%-4d%-10s%-10s%-10s%-10s\n", i, groupId, tutorId, courseId, groupSize);
+            i++;
+        }
+        
+    } // my part
+
+
+    public Tutor listTutorCourse(CircularListInterface<String> course, CircularListInterface<Tutor> tutorGrp) {
+        Tutor newGroup = new Tutor();
+
+        System.out.printf("%-10s%-10s%-10s%-10s\n", "Course", "Tutor", "Type", "Group No.");
+        
+        for (Tutor group : tutorGrp) {
+            String groupId = group.getcourseName();
+            String tutorId = group.getTutor();
+            String courseType = group.getCourseType();
+            
+            CircularListInterface<TutorialGroup> groupList = group.getGrouplist();
+        
+            for (TutorialGroup tutgrp : groupList) {
+                String tutId = tutgrp.getId();
+
+            // Print each tutorial group with proper formatting
+            System.out.printf("%-10s%-10s%-10s%-10s\n", tutorId, groupId, courseType, tutId);
+            };
+            
+            if (groupList.isEmpty()){
+            System.out.printf("%-10s%-10s%-10s%-10s\n", tutorId, groupId, courseType, "N/A");
+            }
+            
+        }
+        
+        return newGroup;
     }
 }
